@@ -7,9 +7,6 @@
 </template>
 
 <style lang="scss" >
-@import './assets/public.scss';
-@import "./assets/ui.scss";
-
-
-
+@use 'assets/public' as *;
+@use 'assets/ui' as *;
 </style>

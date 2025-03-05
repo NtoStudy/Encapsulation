@@ -26,7 +26,7 @@ const props = defineProps({
       </el-icon>
       <span>Navigator Three</span>
     </el-menu-item>
-    <el-menu-item index="3">
+    <el-menu-item index="chooseArea">
       <el-icon>
         <setting/>
       </el-icon>
