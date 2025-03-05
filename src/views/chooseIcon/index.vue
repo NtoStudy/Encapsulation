@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import chooseIcon from '@/components/chooseIcon/src/index.vue'
 import {ref} from "vue";
-
 const visible = ref<boolean>(false)
 const type = ref<string>('primary')
 </script>
