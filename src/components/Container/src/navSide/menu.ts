@@ -25,10 +25,14 @@ const menu: MenuItem[] = [
     icon: 'Menu',
     name: '导航菜单',
     index: '/menu'
-  },{
+  }, {
     icon: 'Setting',
-    name:'进度组件',
-    index:'/progress'
+    name: '进度组件',
+    index: '/progress'
+  }, {
+    icon: 'Setting',
+    name: '时间选择器',
+    index: '/chooseTime'
   }
 
 ]
