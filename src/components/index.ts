@@ -5,12 +5,14 @@ import chooseIcon from '@/components/chooseIcon'
 import chooseTrend from "@/components/chooseTrend";
 import notification from "@/components/notification";
 import notificationList from "@/components/notificationList";
+import menu from "@/components/menu";
 const components = [
   chooseArea,
   chooseIcon,
   chooseTrend,
   notification,
-  notificationList
+  notificationList,
+  menu
 ]
 
 export default {

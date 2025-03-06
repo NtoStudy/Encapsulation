@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import menu from "@/components/Container/src/navSide/menu";
+
 const props = defineProps({
   Collapse: {
     type: Boolean,
@@ -8,31 +10,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <el-menu
-      :collapse="Collapse"
-      default-active="1"
-      class="el-menu-vertical-demo"
-      router
-  >
-    <el-menu-item index="home">
-      <el-icon>
-        <document />
-      </el-icon>
-      <span>Navigator Two</span>
-    </el-menu-item>
-    <el-menu-item index="chooseIcon">
-      <el-icon>
-        <document/>
-      </el-icon>
-      <span>Navigator Three</span>
-    </el-menu-item>
-    <el-menu-item index="chooseArea">
-      <el-icon>
-        <setting/>
-      </el-icon>
-      <span>Navigator Four</span>
-    </el-menu-item>
-  </el-menu>
+  <n-menu :dataItem="menu" router :collapse="Collapse"  default-active="home" class="el-menu-vertical-demo"/>
 </template>
 
 <style scoped>
