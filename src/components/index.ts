@@ -8,6 +8,7 @@ import notificationList from "@/components/notificationList";
 import menu from "@/components/menu";
 import progress from "@/components/progress";
 import chooseTime from "@/components/chooseTime";
+import chooseData from "@/components/chooseData";
 
 const components = [
   chooseArea,
@@ -17,7 +18,8 @@ const components = [
   notificationList,
   menu,
   progress,
-  chooseTime
+  chooseTime,
+  chooseData
 ]
 
 export default {
