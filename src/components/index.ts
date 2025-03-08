@@ -9,6 +9,7 @@ import menu from "@/components/menu";
 import progress from "@/components/progress";
 import chooseTime from "@/components/chooseTime";
 import chooseData from "@/components/chooseData";
+import chooseCity from "@/components/chooseCity";
 
 const components = [
   chooseArea,
@@ -19,7 +20,8 @@ const components = [
   menu,
   progress,
   chooseTime,
-  chooseData
+  chooseData,
+  chooseCity
 ]
 
 export default {

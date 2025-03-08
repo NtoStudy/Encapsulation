@@ -33,7 +33,12 @@ const menu: MenuItem[] = [
     icon: 'Setting',
     name: '时间选择器',
     index: '/chooseTime'
-  }
+  },
+  {
+    icon: 'Setting',
+    name: '城市选择器',
+    index: '/chooseCity'
+  },
 
 ]
 
