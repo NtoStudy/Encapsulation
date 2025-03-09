@@ -1,4 +1,5 @@
 import {RuleItem} from "@/components/form/src/type/rule";
+import {CSSProperties} from 'vue'
 
 /**
  * 定义表单组件的配置选项
@@ -28,5 +29,7 @@ export interface FormOptions {
     showPassword?: boolean,
     // 是否禁用组件，对于所有组件类型是可选的
     disabled?: boolean,
-  }
+    style?: CSSProperties,
+  },
+  children?: FormOptions[]
 }
