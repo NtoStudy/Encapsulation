@@ -39,6 +39,11 @@ const menu: MenuItem[] = [
     name: '城市选择器',
     index: '/chooseCity'
   },
+  {
+    icon: 'Setting',
+    name: '表单组件',
+    index: '/form'
+  },
 
 ]
 
