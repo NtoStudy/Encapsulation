@@ -1,5 +1,6 @@
 import {RuleItem} from "@/components/form/src/type/rule";
 import {CSSProperties} from 'vue'
+import menu from "@/components/menu";
 
 /**
  * 定义表单组件的配置选项
@@ -12,7 +13,7 @@ export interface FormOptions {
     'radio-group' | 'radio-button' | 'rate' | 'select' | 'option' | 'slider'
     | 'switch' | 'time-picker' | 'time-select' | 'transfer' | 'upload',
   // 组件的值，类型为任意，具体取决于组件类型
-  value: any,
+  value?: any,
   // 组件的标签，用于在表单中显示友好的名称，是可选的
   label?: string,
   // 组件的属性名，通常用于标识表单数据中的字段，是可选的
@@ -31,5 +32,22 @@ export interface FormOptions {
     disabled?: boolean,
     style?: CSSProperties,
   },
-  children?: FormOptions[]
+  children?: FormOptions[],
+  uploadAttrs?:{
+    action?: string,
+    headers?:object,
+    method?: string,
+    multiple?: boolean,
+    data?: object | Function,
+    name?: string,
+    withCredentials?: boolean,
+    showFileList?:boolean,
+    drag?: boolean,
+    accept?: string,
+    listType?: string,
+    crossorigin?: 'anonymous' | 'use-credentials' | '',
+    autoUpload?: boolean,
+    disabled?: boolean,
+    limit?: number
+  }
 }

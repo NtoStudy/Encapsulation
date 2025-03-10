@@ -31,12 +31,12 @@ onMounted(() => {
 watch(() => props.options, () => {
   initOptions()
 })
-
+const form = ref<any>(null)
 
 </script>
 
 <template>
-  <el-form v-bind="$attrs" :model="model" :rules="rules" v-if="model">
+  <el-form v-bind="$attrs" :model="model" :rules="rules" v-if="model" ref="form">
     <template v-for="(item, index) in options" :key="index">
       <el-form-item
           v-if="!item.children || ! item.children.length"
@@ -46,7 +46,19 @@ watch(() => props.options, () => {
         <component v-bind="item.attrs"
                    :is="`el-${item.type}`"
                    v-model="model[item.prop!]"
-                   :placeholder="item.placeholder"/>
+                   :placeholder="item.placeholder"
+                   v-if="item.type!=='upload' "/>
+        <component v-bind="item.uploadAttrs"
+                   :is="`el-${item.type}`"
+                   v-model="model[item.prop!]"
+                   :placeholder="item.placeholder"
+                   v-else
+        >
+          <el-upload>
+            <slot name="uploadArea"></slot>
+            <slot name="uploadTip"></slot>
+          </el-upload>
+        </component>
       </el-form-item>
       <el-form-item
           v-if="item.children && item.children.length"
@@ -69,6 +81,9 @@ watch(() => props.options, () => {
         </component>
       </el-form-item>
     </template>
+    <el-form-item>
+      <slot name="action" :form="form" :model="model"></slot>
+    </el-form-item>
   </el-form>
 </template>
 

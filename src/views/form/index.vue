@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {FormOptions} from "@/components/form/src/type/type";
+import {ElMessage} from "element-plus";
 
 const options: FormOptions[] = [
   {
@@ -49,7 +50,7 @@ const options: FormOptions[] = [
   },
   {
     type: 'select',
-    value: '前端',
+    value: '',
     placeholder: '请选择职位',
     prop: 'role',
     label: '职位',
@@ -78,57 +79,106 @@ const options: FormOptions[] = [
     ]
   },
   {
-    type:'checkbox-group',
+    type: 'checkbox-group',
     value: [],
-    prop:'like',
-    label:'爱好',
-    children:[
+    prop: 'like',
+    label: '爱好',
+    children: [
       {
-        type:'checkbox',
-        label:'足球',
-        value:'足球'
+        type: 'checkbox',
+        label: '足球',
+        value: '足球'
       },
-        {
-          type:'checkbox',
-          label:'篮球',
-          value:'篮球'
-        },
-        {
-          type:'checkbox',
-          label:'排球',
-          value:'排球'
-        }
+      {
+        type: 'checkbox',
+        label: '篮球',
+        value: '篮球'
+      },
+      {
+        type: 'checkbox',
+        label: '排球',
+        value: '排球'
+      }
     ]
   },
   {
-    type:'radio-group',
+    type: 'radio-group',
     value: '',
-    prop:'gender',
-    label:'性别',
-    children:[
+    prop: 'gender',
+    label: '性别',
+    children: [
       {
-        type:'radio',
-        label:'男',
-        value:'male'
+        type: 'radio',
+        label: '男',
+        value: 'male'
       },
       {
-        type:'radio',
-        label:'女',
-        value:'nv'
+        type: 'radio',
+        label: '女',
+        value: 'nv'
       },
       {
-        type:'radio',
-        label:'保密',
-        value:'not'
+        type: 'radio',
+        label: '保密',
+        value: 'not'
       }
     ]
-  }
+  },
+  {
+    type: 'upload',
+    value: '',
+    prop: 'avatar',
+    label: '上传',
+    uploadAttrs: {
+      action: 'https://jsonplaceholder.typicode.com/posts/',
+      headers: {
+        Authorization: 'Bearer fake-token'
+      },
+      multiple: true,
 
+
+    }
+  }
 ]
+
+export interface Scope{
+  form: any,
+  model: any
+}
+
+const submitForm = (scope:Scope)=>{
+  scope.form.validate((valid:any)=>{
+    if(valid){
+      ElMessage.success('提交成功')
+      console.log(scope.model)
+    }else {
+      ElMessage.error('请填写完整信息')
+    }
+  })
+}
+const resetForm = (scope:Scope)=>{
+  scope.form.resetFields()
+}
 </script>
 
 <template>
-  <n-form :validate-on-rule-change="false" label-width="100px" :options="options"/>
+  <n-form :validate-on-rule-change="false" label-width="100px" :options="options">
+    <!--在需要的时候单独传入upload的方法-->
+    <template #uploadArea>
+      <el-button type="primary">Click to upload</el-button>
+    </template>
+    <template #uploadTip>
+      <div>
+        jpg/png files with a size less than 500KB.
+      </div>
+    </template>
+    <template #action="scope">
+      <el-button type="primary" @click="submitForm(scope)">
+        Create
+      </el-button>
+      <el-button @click="resetForm(scope)">Reset</el-button>
+    </template>
+  </n-form>
 </template>
 
 <style lang="scss" scoped>
