@@ -49,6 +49,11 @@ const menu: MenuItem[] = [
     name: '弹出表单',
     index: '/modelForm'
   },
+  {
+    icon: 'Setting',
+    name: '表格组件',
+    index: '/table'
+  },
 
 ]
 
