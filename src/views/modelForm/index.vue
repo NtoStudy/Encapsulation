@@ -1,7 +1,12 @@
 <script setup lang="ts">
+import {ref} from "vue";
 import {FormOptions} from "@/components/form/src/type/type";
-import {ElMessage} from "element-plus";
+import {ElMessage, FormInstance} from "element-plus";
 
+const visible = ref<boolean>(false)
+const open = () => {
+  visible.value = true
+}
 const options: FormOptions[] = [
   {
     type: 'input',
@@ -125,21 +130,6 @@ const options: FormOptions[] = [
     ]
   },
   {
-    type: 'upload',
-    value: '',
-    prop: 'avatar',
-    label: '上传',
-    uploadAttrs: {
-      action: 'https://jsonplaceholder.typicode.com/posts/',
-      headers: {
-        Authorization: 'Bearer fake-token'
-      },
-      multiple: true,
-
-
-    }
-  },
-  {
     type: 'editor',
     rules: [{
       required: true,
@@ -148,45 +138,38 @@ const options: FormOptions[] = [
     }]
   }
 ]
-
-export interface Scope {
-  form: any,
-  model: any
+const cancel = (form: any) => {
+  form.validate()
 }
-
-const submitForm = (scope: Scope) => {
-  scope.form.validate((valid: any) => {
+const confirm = (form: any) => {
+  const validate = form.validate()
+  const modelData = form.modelData()
+  validate((valid: any) => {
     if (valid) {
       ElMessage.success('提交成功')
-      console.log(scope.model)
     } else {
       ElMessage.error('请填写完整信息')
     }
   })
-}
-const resetForm = (scope: Scope) => {
-  scope.form.resetFields()
+  console.log(modelData)
 }
 </script>
 
 <template>
-  <n-form :validate-on-rule-change="false" label-width="100px" :options="options">
-    <!--在需要的时候单独传入upload的方法-->
-    <template #uploadArea>
-      <el-button type="primary">Click to upload</el-button>
+  <el-button @click="open">
+    打开按钮
+  </el-button>
+  <modelForm
+      title="编辑用户"
+      v-model:visible="visible"
+      :options="options"
+  >
+    <template #footer="{form}">
+      <el-button @click="cancel(form)">取消</el-button>
+      <el-button type="primary" @click="confirm(form)">确定</el-button>
     </template>
-    <template #uploadTip>
-      <div>
-        jpg/png files with a size less than 500KB.
-      </div>
-    </template>
-    <template #action="scope">
-      <el-button type="primary" @click="submitForm(scope)">
-        Create
-      </el-button>
-      <el-button @click="resetForm(scope)">Reset</el-button>
-    </template>
-  </n-form>
+  </modelForm>
+
 </template>
 
 <style lang="scss" scoped>

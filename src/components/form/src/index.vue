@@ -44,6 +44,17 @@ onBeforeUnmount(() => {
 watch(() => props.options, () => {
   initOptions()
 })
+
+const validate = ()=>{
+  return form.value.validate
+}
+const modelData = ()=>{
+  return model.value
+}
+defineExpose({
+  validate,
+  modelData
+})
 const form = ref<any>(null)
 
 </script>
@@ -87,9 +98,6 @@ const form = ref<any>(null)
               @onCreated="handleCreated"
           />
         </div>
-
-
-
       </el-form-item>
       <el-form-item
           v-if="item.children && item.children.length"
