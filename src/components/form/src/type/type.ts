@@ -11,7 +11,7 @@ export interface FormOptions {
   type: 'cascader' | 'checkbox' | 'checkbox-group' | 'checkbox-button' |
     'color-picker' | 'date-picker' | 'input' | 'input-number' | 'radio' |
     'radio-group' | 'radio-button' | 'rate' | 'select' | 'option' | 'slider'
-    | 'switch' | 'time-picker' | 'time-select' | 'transfer' | 'upload',
+    | 'switch' | 'time-picker' | 'time-select' | 'transfer' | 'upload' | 'editor'
   // 组件的值，类型为任意，具体取决于组件类型
   value?: any,
   // 组件的标签，用于在表单中显示友好的名称，是可选的
@@ -33,15 +33,15 @@ export interface FormOptions {
     style?: CSSProperties,
   },
   children?: FormOptions[],
-  uploadAttrs?:{
+  uploadAttrs?: {
     action?: string,
-    headers?:object,
+    headers?: object,
     method?: string,
     multiple?: boolean,
     data?: object | Function,
     name?: string,
     withCredentials?: boolean,
-    showFileList?:boolean,
+    showFileList?: boolean,
     drag?: boolean,
     accept?: string,
     listType?: string,

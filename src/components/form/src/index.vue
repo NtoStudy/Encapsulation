@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import {PropType, ref, watch} from 'vue';
 import {FormOptions} from "@/components/form/src/type/type";
-import {onMounted} from "@vue/runtime-dom";
+import {onBeforeUnmount, onMounted, shallowRef} from "@vue/runtime-dom";
 import cloneDeep from "lodash/cloneDeep";
-
+import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 const props = defineProps({
   options: {
     type: Array as PropType<FormOptions[]>,
@@ -24,9 +24,22 @@ const initOptions = () => {
     rules.value = cloneDeep(r)
   }
 }
+const editorRef = shallowRef()
+const valueHtml = ref('')
+const toolbarConfig = {}
+const editorConfig = { placeholder: '请输入内容...' }
+const handleCreated = (editor: any) => {
+  editorRef.value = editor
+}
+const  mode = ref('default')
 
 onMounted(() => {
   initOptions()
+})
+onBeforeUnmount(() => {
+  const editor = editorRef.value
+  if (editor == null) return
+  editor.destroy()
 })
 watch(() => props.options, () => {
   initOptions()
@@ -47,18 +60,36 @@ const form = ref<any>(null)
                    :is="`el-${item.type}`"
                    v-model="model[item.prop!]"
                    :placeholder="item.placeholder"
-                   v-if="item.type!=='upload' "/>
+                   v-if="item.type!=='upload' && item.type!=='editor' "/>
         <component v-bind="item.uploadAttrs"
                    :is="`el-${item.type}`"
                    v-model="model[item.prop!]"
                    :placeholder="item.placeholder"
-                   v-else
+                   v-if="item.type === 'upload' "
         >
           <el-upload>
             <slot name="uploadArea"></slot>
             <slot name="uploadTip"></slot>
           </el-upload>
         </component>
+        <div v-if="item.type === 'editor'" id="editor">
+          <Toolbar
+              style="border-bottom: 1px solid #ccc"
+              :editor="editorRef"
+              :defaultConfig="toolbarConfig"
+              :mode="mode"
+          />
+          <Editor
+              style="height: 500px; overflow-y: hidden;"
+              v-model="valueHtml"
+              :defaultConfig="editorConfig"
+              :mode="mode"
+              @onCreated="handleCreated"
+          />
+        </div>
+
+
+
       </el-form-item>
       <el-form-item
           v-if="item.children && item.children.length"

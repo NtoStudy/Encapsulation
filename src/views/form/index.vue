@@ -138,7 +138,15 @@ const options: FormOptions[] = [
 
 
     }
-  }
+  },
+  {
+    type:'editor',
+    rules:{
+      required:true,
+      message:'请填写内容',
+      trigger:'blur'
+    }
+}
 ]
 
 export interface Scope{
