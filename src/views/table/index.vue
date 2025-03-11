@@ -55,11 +55,19 @@ const data = ref<tableData[]>([
   }
 ])
 
+const editRowIndex = ref<String>('')
+
 const cancelIcon = (scope: any) => {
   console.log(scope)
 }
 const confirmIcon = (scope: any) => {
   console.log(scope)
+}
+const edit = () => {
+  editRowIndex.value = 'edit'
+}
+const del = () => {
+  editRowIndex.value = 'delete'
 }
 </script>
 
@@ -67,6 +75,8 @@ const confirmIcon = (scope: any) => {
   <n-table
       :options="options"
       :data="data"
+      isEditRow
+      v-model:editRowIndex="editRowIndex"
       @confirmIcon="confirmIcon"
       @cancelIcon="cancelIcon">
     <template #date="{scope}">
@@ -79,11 +89,15 @@ const confirmIcon = (scope: any) => {
       <el-tag>{{ scope.row.name }}</el-tag>
     </template>
     <template #action="{scope}">
-      <el-button size="small" type="primary">编辑</el-button>
-      <el-button size="small" type="danger">删除</el-button>
+      <el-button size="small" type="primary" @click="edit">编辑</el-button>
+      <el-button size="small" type="danger" @click="del">删除</el-button>
     </template>
     <template #editCell="{scope}">
       <el-button size="small" type="primary" style="margin-left: 4px">确认</el-button>
+      <el-button size="small" type="danger">取消</el-button>
+    </template>
+    <template #editRow="{scope}">
+      <el-button size="small" type="primary">确认</el-button>
       <el-button size="small" type="danger">取消</el-button>
     </template>
   </n-table>
