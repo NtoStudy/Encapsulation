@@ -54,6 +54,11 @@ const menu: MenuItem[] = [
     name: '表格组件',
     index: '/table'
   },
+  {
+    icon: 'Setting',
+    name: '日期选择器',
+    index: '/calendar'
+  },
 
 ]
 
